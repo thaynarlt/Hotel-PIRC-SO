@@ -33,7 +33,7 @@ print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 
 while True:
     try:
-        cmd_usr = input('BTP> ')
+        cmd_usr = input('HRP> ')
     except:
         cmd_usr = 'EXIT'
     cmd = decode_cmd_usr(cmd_usr)
