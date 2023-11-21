@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import socket
 import sys
+from main import GestorReservas
 
 TAM_MSG = 1024         # Tamanho do bloco de mensagem
 HOST = '127.0.0.1'     # IP do Servidor
@@ -33,6 +34,8 @@ print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 
 while True:
     try:
+        menu = GestorReservas()
+        menu_str = menu.exibir_menu()
         cmd_usr = input('HRP> ')
     except:
         cmd_usr = 'EXIT'
