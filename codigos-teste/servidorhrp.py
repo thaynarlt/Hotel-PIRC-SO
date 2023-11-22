@@ -21,8 +21,13 @@ def processa_msg_cliente(msg, con, cliente):
         nome = nome.decode()
         numero = con.recv(TAM_MSG)
         numero = numero.decode()
+<<<<<<< HEAD
         resposta = menu.fazer_reserva(nome, numero)
         con.send(str.encode(resposta))
+=======
+        teste = menu.fazer_reserva(nome, numero)
+        con.send(str.encode(teste))
+>>>>>>> 50b7d42608c769cbe93d8d3b26438c9d4e00ef42
 
     elif msg == '3':
         numero = con.recv(TAM_MSG)
