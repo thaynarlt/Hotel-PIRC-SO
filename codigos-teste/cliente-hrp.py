@@ -44,43 +44,43 @@ while True:
     if not seletor:
         print('Comando indefinido:')
     else:
-        # sock.send(str.encode(cmd))
-        # dados = sock.recv(TAM_MSG)
-        # if not dados: break
-        # msg_status = dados.decode().split('\n')[0]
-        # dados = dados[len(msg_status)+1:]
-        # print(msg_status)
-        # cmd = cmd.split()
-        # cmd[0] = cmd[0].upper()
-        # if cmd[0] == 'QUIT':
-        #     break
+        sock.send(str.encode(cmd))
+        dados = sock.recv(TAM_MSG)
+        if not dados: break
+        msg_status = dados.decode().split('\n')[0]
+        dados = dados[len(msg_status)+1:]
+        print(msg_status)
+        cmd = cmd.split()
+        cmd[0] = cmd[0].upper()
+        if cmd[0] == 'QUIT':
+            break
         if seletor == '1':
             reservas = menu.ver_reservas()
-            # num_arquivos = int(msg_status.split()[1])
-            # dados = dados.decode()
-            # while True:
-            #     arquivos = dados.split('\n')
-            #     residual = arquivos[-1]  # último sem \n fica para próxima
-            #     for arq in arquivos[:-1]:
-            #         print(arq)
-            #         num_arquivos -= 1
-            #     if num_arquivos == 0: break
-            #     dados = sock.recv(TAM_MSG)
-            #     if not dados: break
-            #     dados = residual + dados.decode()
+            num_arquivos = int(msg_status.split()[1])
+            dados = dados.decode()
+            while True:
+                arquivos = dados.split('\n')
+                residual = arquivos[-1]  # último sem \n fica para próxima
+                for arq in arquivos[:-1]:
+                    print(arq)
+                    num_arquivos -= 1
+                if num_arquivos == 0: break
+                dados = sock.recv(TAM_MSG)
+                if not dados: break
+                dados = residual + dados.decode()
         elif seletor == '2':
             fazer_reserva = menu.fazer_reserva()
-            # nome_arq = " ".join(cmd[1:])
-            # print('Recebendo:', nome_arq)
-            # arq = open(nome_arq, "wb")
-            # tam_arquivo = int(msg_status.split()[1])
-            # while True:
-            #     arq.write(dados)
-            #     tam_arquivo -= len(dados)
-            #     if tam_arquivo == 0: break
-            #     dados = sock.recv(TAM_MSG)
-            #     if not dados: break
-            #arq.close()
+            nome_arq = " ".join(cmd[1:])
+            print('Recebendo:', nome_arq)
+            arq = open(nome_arq, "wb")
+            tam_arquivo = int(msg_status.split()[1])
+            while True:
+                arq.write(dados)
+                tam_arquivo -= len(dados)
+                if tam_arquivo == 0: break
+                dados = sock.recv(TAM_MSG)
+                if not dados: break
+            arq.close()
         elif seletor == '3':
             cancelar_reserva = menu.cancelar_reserva()
         elif seletor == '4':
