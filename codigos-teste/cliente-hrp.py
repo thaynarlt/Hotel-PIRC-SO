@@ -34,21 +34,17 @@ sock.connect(serv)
 print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 
 
-# ... (código existente)
-
 while True:
     try:
         menu_str = menu.exibir_menu()
         seletor = input('HRP> ')
-        sock.send(str.encode(seletor))
-        resposta_servidor = sock.recv(TAM_MSG).decode()
-        print(resposta_servidor)
     except:
         seletor = 'EXIT'
+    # cmd = decode_cmd_usr(cmd_usr)
+    if not seletor:
+        print('Comando indefinido:')
+    else:
         sock.send(str.encode(seletor))
-
-# ... (código existente)
-
 
         # if seletor == '1':
         #     resposta = sock.recv(TAM_MSG).decode()

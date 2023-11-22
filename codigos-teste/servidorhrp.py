@@ -9,36 +9,26 @@ PORT = 40000  # Porta que o Servidor escuta
 
 menu = GestorReservas()
 
-# ... (código existente)
-
-def enviar_msg_cliente(msg, con):
-    con.send(str.encode(msg))
-
 def processa_msg_cliente(msg, con, cliente):
     msg = msg.decode()
     print('Cliente', cliente, 'enviou', msg)
-
+    # msg = msg.split()
     if msg == '1':
-        reservas_str = menu.ver_reservas()
-        enviar_msg_cliente(reservas_str, con)
+        menu.ver_reservas()
 
     elif msg == '2':
         menu.fazer_reserva()
-        enviar_msg_cliente("Reserva realizada com sucesso.", con)
 
     elif msg == '3':
         menu.cancelar_reserva()
-        enviar_msg_cliente("Reserva cancelada com sucesso.", con)
-
+    
     elif msg == '4':
         print('Teste quit')
         con.close()
 
     else:
-        enviar_msg_cliente('-ERR Comando inválido', con)
-
-# ... (código existente)
-
+        con.send(str.encode('-ERR Invalid command\n'))
+    return True
     # if msg[0].upper() == 'GET':
     #     nome_arq = " ".join(msg[1:])
     #     print('Arquivo soclicitado:', nome_arq)
