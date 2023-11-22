@@ -3,7 +3,7 @@ import socket
 class GestorReservas:
     def __init__(self):
         self.reservas = {}
-        self.server_address = ('localhost', 12345)  # Use o mesmo endereço e porta do servidor
+        self.server_address = ('127.0.0.1', 40000)  # Use o mesmo endereço e porta do servidor
 
     def exibir_menu(self):
         print('----------------------------------------')
