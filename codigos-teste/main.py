@@ -1,6 +1,9 @@
+import socket
+
 class GestorReservas:
     def __init__(self):
         self.reservas = {}
+        self.server_address = ('localhost', 12345)  # Use o mesmo endereço e porta do servidor
 
     def exibir_menu(self):
         print('----------------------------------------')
@@ -14,33 +17,29 @@ class GestorReservas:
         print("4. Sair")
 
     def ver_reservas(self):
-        if self.reservas:
-            print("Reservas:")
-            for numero, nome in self.reservas.items():
-                print(f"{numero}: {nome}")
-        else:
-            print("Nenhuma reserva encontrada.")
+        # Envia comando GET para o servidor
+        self.enviar_comando('GET')
 
     def fazer_reserva(self):
         nome_cliente = input("Digite o nome do cliente: ")
         numero_quarto = input("Digite o número do quarto: ")
 
-        # Verificar se o número do quarto já está reservado
-        if numero_quarto in self.reservas:
-            print(f"Desculpe, o quarto {numero_quarto} já está reservado.")
-        else:
-            self.reservas[numero_quarto] = nome_cliente
-            print(f"Reserva para {nome_cliente} no quarto {numero_quarto} realizada com sucesso.")
+        # Envia comando CWD para o servidor
+        self.enviar_comando(f'CWD {nome_cliente} {numero_quarto}')
 
     def cancelar_reserva(self):
         numero_quarto = input("Digite o número do quarto para cancelar a reserva: ")
 
-        # Verificar se o número do quarto está reservado
-        if numero_quarto in self.reservas:
-            nome_cliente = self.reservas.pop(numero_quarto)
-            print(f"Reserva para {nome_cliente} no quarto {numero_quarto} cancelada com sucesso.")
-        else:
-            print(f"Desculpe, o quarto {numero_quarto} não está reservado.")
+        # Envia comando QUIT para o servidor
+        self.enviar_comando(f'QUIT {numero_quarto}')
+
+    def enviar_comando(self, comando):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect(self.server_address)
+            s.sendall(comando.encode())
+            data = s.recv(1024)
+
+        print('Resposta do servidor:', data.decode())
 
     def executar(self):
         while True:
