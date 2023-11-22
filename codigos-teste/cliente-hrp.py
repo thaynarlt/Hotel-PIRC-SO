@@ -7,25 +7,24 @@ TAM_MSG = 1024         # Tamanho do bloco de mensagem
 HOST = '127.0.0.1'     # IP do Servidor
 PORT = 40000           # Porta que o Servidor escuta
 
-
 def decode_cmd_usr(cmd_usr):
     cmd_map = {
         'exit': 'quit',
-        'ls' : 'list',
-        'cd' : 'cwd',
-        'get' : 'get',
+        'ls': 'list',
+        'cd': 'cwd',
+        'get': 'get',
     }
-    
+
     tokens = cmd_usr.split()
     if tokens[0].lower() in cmd_map:
         tokens[0] = cmd_map[tokens[0].lower()]
         return " ".join(tokens)
     else:
         return False
-    
+
 if len(sys.argv) > 1:
     HOST = sys.argv[1]
-print('Servidor:', HOST+':'+str(PORT))
+print('Servidor:', HOST + ':' + str(PORT))
 
 serv = (HOST, PORT)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -35,9 +34,9 @@ print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 while True:
     try:
         menu = GestorReservas()
-        menu_str = menu.exibir_menu()
+        menu.exibir_menu()  # Removido o armazenamento da string de menu
         cmd_usr = input('HRP> ')
-    except:
+    except KeyboardInterrupt:
         cmd_usr = 'EXIT'
     cmd = decode_cmd_usr(cmd_usr)
     if not cmd:
@@ -45,9 +44,10 @@ while True:
     else:
         sock.send(str.encode(cmd))
         dados = sock.recv(TAM_MSG)
-        if not dados: break
+        if not dados:
+            break
         msg_status = dados.decode().split('\n')[0]
-        dados = dados[len(msg_status)+1:]
+        dados = dados[len(msg_status) + 1:]
         print(msg_status)
         cmd = cmd.split()
         cmd[0] = cmd[0].upper()
@@ -62,9 +62,11 @@ while True:
                 for arq in arquivos[:-1]:
                     print(arq)
                     num_arquivos -= 1
-                if num_arquivos == 0: break
+                if num_arquivos == 0:
+                    break
                 dados = sock.recv(TAM_MSG)
-                if not dados: break
+                if not dados:
+                    break
                 dados = residual + dados.decode()
         elif cmd[0] == 'GET':
             nome_arq = " ".join(cmd[1:])
@@ -74,8 +76,15 @@ while True:
             while True:
                 arq.write(dados)
                 tam_arquivo -= len(dados)
-                if tam_arquivo == 0: break
+                if tam_arquivo == 0:
+                    break
                 dados = sock.recv(TAM_MSG)
-                if not dados: break
+                if not dados:
+                    break
             arq.close()
+
 sock.close()
+
+if __name__ == "__main__":
+    # Removido o trecho main() que não é necessário neste contexto
+    pass
