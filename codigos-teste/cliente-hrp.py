@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import socket
 import sys
-from main import GestorReservas
+from servidorhrp import menu
 
 TAM_MSG = 1024         # Tamanho do bloco de mensagem
 HOST = '127.0.0.1'     # IP do Servidor
@@ -33,7 +33,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(serv)
 print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 
-menu = GestorReservas()
+
 while True:
     try:
         menu_str = menu.exibir_menu()

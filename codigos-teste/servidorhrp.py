@@ -1,10 +1,13 @@
 import socket
 import os
 import threading
+from main import GestorReservas
 
 TAM_MSG = 1024  # Tamanho do bloco de mensagem
 HOST = '0.0.0.0'  # IP do Servidor
 PORT = 40000  # Porta que o Servidor escuta
+
+menu = GestorReservas()
 
 def processa_msg_cliente(msg, con, cliente):
     msg = msg.decode()
