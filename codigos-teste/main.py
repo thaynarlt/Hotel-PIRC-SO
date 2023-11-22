@@ -3,15 +3,15 @@ class GestorReservas:
         self.reservas = {}
 
     def exibir_menu(self):
-        print('----------------------------------------')
-        print('Bem-vindo ao Hotel Reservation Protocol!')
-        print('----------------------------------------')
+        print('\033[1;34m' + '----------------------------------------')
+        print('\033[1;34m' + 'Bem-vindo ao Hotel Reservation Protocol!')
+        print('\033[1;34m' + '----------------------------------------')
         print('')
-        print("Menu de Reservas:")
-        print("1. Ver reservas")
-        print("2. Fazer uma reserva")
-        print("3. Cancelar uma reserva")
-        print("4. Sair")
+        print('\033[1;33m' + "Menu de Reservas:")
+        print('\033[1;32m' + "1. Ver reservas")
+        print('\033[1;32m' + "2. Fazer uma reserva")
+        print('\033[1;32m' + "3. Cancelar uma reserva")
+        print('\033[1;31m' + "4. Sair" + '\033[0m')
 
     def ver_reservas(self):
         if self.reservas:
