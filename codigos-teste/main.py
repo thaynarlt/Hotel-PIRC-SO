@@ -34,35 +34,12 @@ class GestorReservas:
             return f"Reserva para {nome} no quarto {numero} realizada com sucesso."
             
 
-    def cancelar_reserva(self):
-        numero_quarto = input("Digite o número do quarto para cancelar a reserva: ")
+    def cancelar_reserva(self, numero):
+        # numero_quarto = input("Digite o número do quarto para cancelar a reserva: ")
 
         # Verificar se o número do quarto está reservado
-        if numero_quarto in self.reservas:
-            nome_cliente = self.reservas.pop(numero_quarto)
-            print(f"Reserva para {nome_cliente} no quarto {numero_quarto} cancelada com sucesso.")
+        if numero in self.reservas:
+            nome_cliente = self.reservas.pop(numero)
+            return f"Reserva para {nome_cliente} no quarto {numero} cancelada com sucesso."
         else:
-            print(f"Desculpe, o quarto {numero_quarto} não está reservado.")
-
-    def executar(self):
-        while True:
-            self.exibir_menu()
-
-            opcao = input("Escolha uma opção (1-4): ")
-
-            if opcao == "1":
-                self.ver_reservas()
-            elif opcao == "2":
-                self.fazer_reserva()
-            elif opcao == "3":
-                self.cancelar_reserva()
-            elif opcao == "4":
-                print("Saindo do programa. Obrigado!")
-                break
-            else:
-                print("Opção inválida. Por favor, escolha uma opção válida.")
-
-
-if __name__ == "__main__":
-    gestor = GestorReservas()
-    gestor.executar()
+            return f"Desculpe, o quarto {numero} não está reservado."
