@@ -33,28 +33,28 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(serv)
 print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 
+menu = GestorReservas()
 while True:
     try:
-        menu = GestorReservas()
         menu_str = menu.exibir_menu()
-        cmd_usr = input('HRP> ')
+        seletor = input('HRP> ')
     except:
-        cmd_usr = 'EXIT'
-    cmd = decode_cmd_usr(cmd_usr)
-    if not cmd:
-        print('Comando indefinido:', cmd_usr)
+        seletor = 'EXIT'
+    # cmd = decode_cmd_usr(cmd_usr)
+    if not seletor:
+        print('Comando indefinido:')
     else:
-        sock.send(str.encode(cmd))
-        dados = sock.recv(TAM_MSG)
-        if not dados: break
-        msg_status = dados.decode().split('\n')[0]
-        dados = dados[len(msg_status)+1:]
-        print(msg_status)
-        cmd = cmd.split()
-        cmd[0] = cmd[0].upper()
-        if cmd[0] == 'QUIT':
-            break
-        elif cmd[0] == '1':
+        # sock.send(str.encode(cmd))
+        # dados = sock.recv(TAM_MSG)
+        # if not dados: break
+        # msg_status = dados.decode().split('\n')[0]
+        # dados = dados[len(msg_status)+1:]
+        # print(msg_status)
+        # cmd = cmd.split()
+        # cmd[0] = cmd[0].upper()
+        # if cmd[0] == 'QUIT':
+        #     break
+        if seletor == '1':
             reservas = menu.ver_reservas()
             # num_arquivos = int(msg_status.split()[1])
             # dados = dados.decode()
@@ -68,7 +68,7 @@ while True:
             #     dados = sock.recv(TAM_MSG)
             #     if not dados: break
             #     dados = residual + dados.decode()
-        elif cmd[0] == '2':
+        elif seletor == '2':
             fazer_reserva = menu.fazer_reserva()
             # nome_arq = " ".join(cmd[1:])
             # print('Recebendo:', nome_arq)
@@ -81,8 +81,8 @@ while True:
             #     dados = sock.recv(TAM_MSG)
             #     if not dados: break
             #arq.close()
-        elif cmd[0] == '3':
+        elif seletor == '3':
             cancelar_reserva = menu.cancelar_reserva()
-        elif cmd[0] == '4':
+        elif seletor == '4':
             break
 sock.close()
