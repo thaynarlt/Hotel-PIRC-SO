@@ -14,10 +14,16 @@ def processa_msg_cliente(msg, con, cliente):
     print('Cliente', cliente, 'enviou', msg)
     # msg = msg.split()
     if msg == '1':
-        menu.ver_reservas()
+        reservas = menu.ver_reservas()
+        con.send(str.encode(reservas))
 
     elif msg == '2':
-        menu.fazer_reserva()
+        nome = con.recv(TAM_MSG)
+        nome = nome.decode()
+        numero = con.recv(TAM_MSG)
+        numero = numero.decode()
+        teste = menu.fazer_reserva(nome, numero)
+        con.send(str.encode(teste))
 
     elif msg == '3':
         menu.cancelar_reserva()
