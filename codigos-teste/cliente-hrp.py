@@ -46,13 +46,17 @@ while True:
     else:
         sock.send(str.encode(seletor))
 
-        # if seletor == '1':
-        #     resposta = sock.recv(TAM_MSG).decode()
-        #     print(resposta)
+        if seletor == '1':
+            resposta = sock.recv(TAM_MSG).decode()
+            print(resposta)
 
-        # elif seletor == '2':
-        #     resposta = sock.recv(TAM_MSG).decode()
-        #     print(resposta)
+        elif seletor == '2':
+            nome = input("Digite o nome do cliente: ")
+            sock.send(str.encode(nome))
+            quarto = input("Digite o número do quarto: ")
+            sock.send(str.encode(quarto))
+            resposta = sock.recv(TAM_MSG).decode()
+            print(resposta)
 
         # elif seletor == '3':
         #     resposta = sock.recv(TAM_MSG).decode()

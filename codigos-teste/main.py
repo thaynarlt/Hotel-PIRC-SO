@@ -15,22 +15,24 @@ class GestorReservas:
 
     def ver_reservas(self):
         if self.reservas:
-            print("Reservas:")
+            result = "Reservas:\n"
             for numero, nome in self.reservas.items():
-                print(f"{numero}: {nome}")
+                result += f"{numero}: {nome}\n"
+            return result
         else:
-            print("Nenhuma reserva encontrada.")
+            return "Nenhuma reserva encontrada."
 
-    def fazer_reserva(self):
-        nome_cliente = input("Digite o nome do cliente: ")
-        numero_quarto = input("Digite o número do quarto: ")
+    def fazer_reserva(self, nome, numero):
+        # nome_cliente = input("Digite o nome do cliente: ")
+        # numero_quarto = input("Digite o número do quarto: ")
 
         # Verificar se o número do quarto já está reservado
-        if numero_quarto in self.reservas:
-            print(f"Desculpe, o quarto {numero_quarto} já está reservado.")
+        if numero in self.reservas:
+            return f"Desculpe, o quarto {numero} já está reservado."
         else:
-            self.reservas[numero_quarto] = nome_cliente
-            print(f"Reserva para {nome_cliente} no quarto {numero_quarto} realizada com sucesso.")
+            self.reservas[numero] = nome
+            return f"Reserva para {nome} no quarto {numero} realizada com sucesso."
+            
 
     def cancelar_reserva(self):
         numero_quarto = input("Digite o número do quarto para cancelar a reserva: ")
