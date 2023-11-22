@@ -47,7 +47,8 @@ def processa_msg_cliente(msg, con, cliente):
         con.send(str.encode('+OK\n'))
         return False
     else:
-        con.send(str.encode('-ERR Invalid command\n'))
+        #con.send(str.encode('-ERR Invalid command\n'))
+        pass
     return True
 
 def processa_cliente(con, cliente):
