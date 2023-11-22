@@ -37,7 +37,7 @@ print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 while True:
     try:
         menu_str = menu.exibir_menu()
-        seletor = input('\033[1;34m'+'HRP> ')
+        seletor = input('\033[1;34m'+'HRP> ') #arrumar cores
     except:
         seletor = 'EXIT'
     if not seletor:
