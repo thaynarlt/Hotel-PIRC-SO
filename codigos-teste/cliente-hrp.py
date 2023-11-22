@@ -44,7 +44,27 @@ while True:
     if not seletor:
         print('Comando indefinido:')
     else:
-        # sock.send(str.encode(cmd))
+        sock.send(str.encode(seletor))
+
+        # if seletor == '1':
+        #     resposta = sock.recv(TAM_MSG).decode()
+        #     print(resposta)
+
+        # elif seletor == '2':
+        #     resposta = sock.recv(TAM_MSG).decode()
+        #     print(resposta)
+
+        # elif seletor == '3':
+        #     resposta = sock.recv(TAM_MSG).decode()
+        #     print(resposta)
+        
+        # elif seletor == '4':
+        #     print('Saindo...')
+        #     sock.close()
+        #     break
+
+
+
         # dados = sock.recv(TAM_MSG)
         # if not dados: break
         # msg_status = dados.decode().split('\n')[0]
@@ -54,8 +74,12 @@ while True:
         # cmd[0] = cmd[0].upper()
         # if cmd[0] == 'QUIT':
         #     break
-        if seletor == '1':
-            reservas = menu.ver_reservas()
+
+
+        # if seletor == '1':
+        #     reservas = menu.ver_reservas()
+
+
             # num_arquivos = int(msg_status.split()[1])
             # dados = dados.decode()
             # while True:
@@ -68,8 +92,12 @@ while True:
             #     dados = sock.recv(TAM_MSG)
             #     if not dados: break
             #     dados = residual + dados.decode()
-        elif seletor == '2':
-            fazer_reserva = menu.fazer_reserva()
+
+
+        # elif seletor == '2':
+        #     fazer_reserva = menu.fazer_reserva()
+        
+
             # nome_arq = " ".join(cmd[1:])
             # print('Recebendo:', nome_arq)
             # arq = open(nome_arq, "wb")
@@ -81,8 +109,14 @@ while True:
             #     dados = sock.recv(TAM_MSG)
             #     if not dados: break
             #arq.close()
-        elif seletor == '3':
-            cancelar_reserva = menu.cancelar_reserva()
-        elif seletor == '4':
-            break
+
+
+        # elif seletor == '3':
+        #     cancelar_reserva = menu.cancelar_reserva()
+        
+
+        # elif seletor == '4':
+        #     break
+    
+
 sock.close()
