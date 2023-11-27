@@ -54,6 +54,7 @@ while True:
             sock.send(str.encode(nome))
             quarto = input("Digite o número do quarto: ")
             sock.send(str.encode(quarto))
+            print('Processando reserva...')
             resposta = sock.recv(TAM_MSG).decode()
             print(resposta)
 
