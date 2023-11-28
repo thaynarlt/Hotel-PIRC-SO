@@ -1,3 +1,5 @@
+import threading
+mutex = threading.Semaphore(1)
 class GestorReservas:
     def __init__(self):
         self.reservas = {}
@@ -14,12 +16,15 @@ class GestorReservas:
         print('\033[1;31m' + "4. Sair" + '\033[0m')
 
     def ver_reservas(self):
+        mutex.acquire()
         if self.reservas:
             result = "Reservas:\n"
             for numero, nome in self.reservas.items():
                 result += f"{numero}: {nome}\n"
+            mutex.release()
             return result
         else:
+            mutex.release()
             return "Nenhuma reserva encontrada."
 
     def fazer_reserva(self, nome, numero):
@@ -27,11 +32,15 @@ class GestorReservas:
         # numero_quarto = input("Digite o número do quarto: ")
 
         # Verificar se o número do quarto já está reservado
+        mutex.acquire()
         if numero in self.reservas:
+            mutex.release()
             return f"Desculpe, o quarto {numero} já está reservado."
         else:
             self.reservas[numero] = nome
+            mutex.release()
             return f"Reserva para {nome} no quarto {numero} realizada com sucesso."
+        
             
 
     def cancelar_reserva(self, numero):

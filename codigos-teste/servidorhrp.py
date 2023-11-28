@@ -8,7 +8,6 @@ TAM_MSG = 1024  # Tamanho do bloco de mensagem
 HOST = '0.0.0.0'  # IP do Servidor
 PORT = 40000  # Porta que o Servidor escuta
 
-mutex = threading.Semaphore(1)
 # fila_espera = Queue()
 menu = GestorReservas()
 funcoes = {'1': 'requisição para ver os quartos já reservados.',
@@ -31,12 +30,9 @@ def processa_msg_cliente(msg, con, cliente):
         nome = nome.decode()
         numero = con.recv(TAM_MSG)
         numero = numero.decode()
-
-        mutex.acquire()
         resposta = menu.fazer_reserva(nome, numero)
         con.send(str.encode(resposta))
-        mutex.release()
-
+        
         ## Tentar adquirir o semáforo
         # if mutex.acquire(blocking=False):
         #     try:
