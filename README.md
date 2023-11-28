@@ -1,8 +1,8 @@
 # Hotel Reservation Protocol
 
 Projeto integrado das disciplinas Sistemas Operacionais e Protocolos de Interconexão de Redes de Computadores.<br>
-Professores: Gustavo Wagner Diniz Mendes e Leonidas Francisco de Lima Júnior
-Alunos: Silas Leao Rocha Albuquerque e Thayná Rodrigues Lopes Tolentino
+<strong>Professores:</strong> Gustavo Wagner Diniz Mendes e Leonidas Francisco de Lima Júnior<br>
+<strong>Alunos:</strong> Silas Leao Rocha Albuquerque e Thayná Rodrigues Lopes Tolentino
 
 ## 🚀 Descrição e Pré-requisitos de Instalação
 
@@ -32,16 +32,16 @@ import sys
 
 Tabela contendo o nome de cada arquivo e uma descrição sobre o seu papel (responsabilidade) na aplicação;<br>
 
-_clientehrp.py_ : Contém o código do cliente que irá interagir com o Servidor
+<strong>_clientehrp.py_ :</strong> Contém o código do cliente que irá interagir com o Servidor
 
 ```
 clientehrp.py
 ```
-_main.py_ : Contém o código do Menu disponível ao Cliente que deseja realizar alguma ação no Hotel
+<strong>_main.py_ :</strong> Contém o código do Menu disponível ao Cliente que deseja realizar alguma ação no Hotel
 ```
 main.py
 ```
-_servidorhrp.py_ : Contém o código do Servidor que irá interagir com os diversos Clientes
+<strong>_servidorhrp.py_ :</strong> Contém o código do Servidor que irá interagir com os diversos Clientes
 ```
 servidorhrp.py
 ```
