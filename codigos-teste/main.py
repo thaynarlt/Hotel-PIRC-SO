@@ -16,6 +16,7 @@ class GestorReservas:
         print('\033[1;31m' + "4. Sair" + '\033[0m')
 
     def ver_reservas(self):
+        global mutex
         mutex.acquire()
         if self.reservas:
             result = "Reservas:\n"
@@ -32,6 +33,7 @@ class GestorReservas:
         # numero_quarto = input("Digite o número do quarto: ")
 
         # Verificar se o número do quarto já está reservado
+        global mutex
         mutex.acquire()
         if numero in self.reservas:
             mutex.release()
