@@ -11,20 +11,25 @@ PORT = 40000  # Porta que o Servidor escuta
 # fila_espera = Queue()
 menu = GestorReservas()
 funcoes = {'1': 'requisição para ver os quartos já reservados.',
-           '2': 'requisição para fazer uma reserva.',
-           '3': 'requisição para cancelar uma reserva.',
-           '4': 'requisição para encerrar a conexão.'}
+           '2': 'requisição para ver os quartos disponiveis.',
+           '3': 'requisição para fazer uma reserva.',
+           '4': 'requisição para cancelar uma reserva.',
+           '5': 'requisição para encerrar a conexão.'}
 
 
 def processa_msg_cliente(msg, con, cliente):
     msg = msg.decode()
     print('Cliente', cliente, 'enviou', funcoes[msg])
+    
     if msg == '1':
         reservas = menu.ver_reservas()
         con.send(str.encode(reservas))
 
     elif msg == '2':
-        global mutex
+        quartos = menu.ver_quartos_disponiveis()
+        con.send(str.encode(quartos))
+
+    elif msg == '3':
         # global fila_espera
         nome = con.recv(TAM_MSG)
         nome = nome.decode()
@@ -46,7 +51,7 @@ def processa_msg_cliente(msg, con, cliente):
         #     fila_espera.put((con, cliente, nome, numero))
 
 
-    elif msg == '3':
+    elif msg == '4':
         numero = con.recv(TAM_MSG)
         numero = numero.decode()
         resposta = menu.cancelar_reserva(numero)

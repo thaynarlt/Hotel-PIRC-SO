@@ -15,6 +15,7 @@ def decode_cmd_usr(cmd_usr):
         '2' : '2',
         '3' : '3',
         '4' : '4',
+        '5' : '5'
     }
     
     tokens = cmd_usr.split()
@@ -46,11 +47,18 @@ while True:
         sock.send(str.encode(seletor))
 
         if seletor == '1':
-            resposta = sock.recv(TAM_MSG).decode()
-            print(resposta)
+            reservas_feitas = sock.recv(TAM_MSG).decode()
+            print(reservas_feitas)
 
         elif seletor == '2':
+            quartos_disponiveis = sock.recv(TAM_MSG).decode()
+            print(quartos_disponiveis)
+
+        elif seletor == '3':
             nome = input("Digite o nome do cliente: ")
+            while not nome.isalpha():
+                print("Por favor, digite um nome válido contendo apenas letras.")
+                nome = input("Digite o nome do cliente: ")
             sock.send(str.encode(nome))
             quarto = input("Digite o número do quarto: ")
             sock.send(str.encode(quarto))
@@ -58,13 +66,13 @@ while True:
             resposta = sock.recv(TAM_MSG).decode()
             print(resposta)
 
-        elif seletor == '3':
+        elif seletor == '4':
             numero = input("Digite o número do quarto para cancelar a reserva: ")
             sock.send(str.encode(numero))
             resposta = sock.recv(TAM_MSG).decode()
             print(resposta)
         
-        elif seletor == '4':
+        elif seletor == '5':
             print('Até mais!')
             sock.close()
             break
