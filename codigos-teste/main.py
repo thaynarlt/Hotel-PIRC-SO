@@ -62,7 +62,6 @@ class GestorReservas:
             
 
     def cancelar_reserva(self, numero):
-        # numero_quarto = input("Digite o número do quarto para cancelar a reserva: ")
         # Verificar se o número do quarto está reservado
         global mutex
         mutex.acquire()

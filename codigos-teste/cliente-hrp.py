@@ -38,7 +38,7 @@ print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
 while True:
     try:
         menu_str = menu.exibir_menu()
-        seletor = input('\033[1;34m'+'HRP> ') #arrumar cores
+        seletor = input('\033[1;34m'+'HRP> ')
     except:
         seletor = 'EXIT'
     if not seletor:
@@ -68,6 +68,9 @@ while True:
 
         elif seletor == '4':
             numero = input("Digite o número do quarto para cancelar a reserva: ")
+            while not numero:
+                print("Por favor, digite um número.")
+                numero = input("Digite o número do quarto para cancelar a reserva: ")
             sock.send(str.encode(numero))
             resposta = sock.recv(TAM_MSG).decode()
             print(resposta)
