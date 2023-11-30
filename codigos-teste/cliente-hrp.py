@@ -32,18 +32,11 @@ print('Servidor:', HOST+':'+str(PORT))
 serv = (HOST, PORT)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(serv)
-print('Para encerrar use EXIT, CTRL+D ou CTRL+C\n')
-
 
 while True:
-    try:
         menu_str = menu.exibir_menu()
         seletor = input('\033[1;34m'+'HRP> ')
-    except:
-        seletor = 'EXIT'
-    if not seletor:
-        print('Comando indefinido:')
-    else:
+
         sock.send(str.encode(seletor))
 
         if seletor == '1':
@@ -79,4 +72,7 @@ while True:
             print('Até mais!')
             sock.close()
             break
+
+        else:
+            print("Opção inválida.")
 sock.close()
