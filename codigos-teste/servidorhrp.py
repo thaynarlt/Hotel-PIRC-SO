@@ -7,7 +7,12 @@
 # Revisar código no fim.
 # Rezar pra tirar um 10 e passar em protocolos. (Importante!!!)
 
-
+# Temporário
+codigos = {'20' : 'Operação realizada com sucesso.',
+           '30' : 'Operação falhou(argumento inválido)',
+           '40' : 'Operação falhou(quarto indisponível)',
+           '50' : 'Operação recusada(permissão negada)',
+           '60' : 'Erro de conexão'}
 
 import socket
 import threading
@@ -83,13 +88,22 @@ def processa_msg_cliente(msg, con, cliente):
         # A variável 'resposta' é enviada ao cliente para impressão.
         con.send(str.encode(resposta))
 
+
+# Função que processa os clientes que vão se conectando ao servidor
 def processa_cliente(con, cliente):
+    # Impressão para o log do servidor, informando quando um cliente se conecta, especficando o endereço e porta do mesmo
     print('Cliente conectado', cliente)
+    # Iniciação de um loop para ficar escutando qualquer requisição que o cliente fizer
     while True:
+        # Recebe a requisição do cliente e guarda na variável 'msg'
         msg = con.recv(TAM_MSG)
+        # Quando um cliente envia uma requisição, a função de processsar sua requisição é chamada, sendo passados a mensagem(código) e endereço do cliente como parâmetros
         processa_msg_cliente(msg, con, cliente)
 
+
+# Função principal para rodar o servidor
 def main():
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serv = (HOST, PORT)
     sock.bind(serv)
