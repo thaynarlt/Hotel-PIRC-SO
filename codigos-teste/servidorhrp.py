@@ -1,9 +1,11 @@
 # Coisas pra fzr:
-# Criar dicionario de códigos de resposta para as funções do app e implementá-los em todos os retornos. 
+
+# Criar dicionario de códigos de resposta(para entendimento universal) para as funções do app e implementá-los em todos os retornos de msg. 
+
 # Documentação geral do código. 
 # Revisar cores das mensagens ?????
 # Revisar código de forma geral no fim.
-
+# Rezar pra tirar um 10 e passar em protocolos. (Importante!!!)
 
 
 
