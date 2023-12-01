@@ -1,18 +1,8 @@
 # Coisas pra fzr:
 
-# Criar dicionario de códigos de resposta(para entendimento universal) para as funções do app e implementá-los em todos os retornos de msg. 
-
 # Finalizar e revisar documentação geral do código. 
-# Revisar cores das mensagens ?????
 # Revisar código no fim.
 # Rezar pra tirar um 10 e passar em protocolos. (Importante!!!)
-
-# Temporário
-codigos = {'20' : 'Operação realizada com sucesso.',
-           '30' : 'Operação falhou(argumento inválido)',
-           '40' : 'Operação falhou(quarto indisponível)',
-           '50' : 'Operação recusada(permissão negada)',
-           '60' : 'Erro de conexão'}
 
 import socket
 import threading
@@ -30,7 +20,8 @@ funcoes = {'1': 'requisição para ver os quartos já reservados.',
            '2': 'requisição para ver os quartos disponiveis.',
            '3': 'requisição para fazer uma reserva.',
            '4': 'requisição para cancelar uma reserva.',
-           '5': 'requisição para encerrar a conexão.'}
+           '5': 'requisição para consulta do dicionário de códigos',
+           '6': 'requisição para encerrar a conexão.'}
 
 # Função que processa as requisições enviadas pelos clientes, utilizando o código enviado na mensagem para acionar sua respectiva função.
 def processa_msg_cliente(msg, con, cliente):
@@ -88,11 +79,15 @@ def processa_msg_cliente(msg, con, cliente):
         # A variável 'resposta' é enviada ao cliente para impressão.
         con.send(str.encode(resposta))
 
+    elif msg == '5':
+        dicionario = menu.ver_dicionario()
+        con.send(str.encode(dicionario))
+
 
 # Função que processa os clientes que vão se conectando ao servidor
 def processa_cliente(con, cliente):
     # Impressão para o log do servidor, informando quando um cliente se conecta, especficando o endereço e porta do mesmo
-    print('Cliente conectado', cliente)
+    print(f'Cliente conectado', {cliente}, ' (Code 20)' )
     # Iniciação de um loop para ficar escutando qualquer requisição que o cliente fizer
     while True:
         # Recebe a requisição do cliente e guarda na variável 'msg'
@@ -103,7 +98,6 @@ def processa_cliente(con, cliente):
 
 # Função principal para rodar o servidor
 def main():
-
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serv = (HOST, PORT)
     sock.bind(serv)
@@ -115,7 +109,7 @@ def main():
             # Inicia uma nova thread para lidar com o cliente
             threading.Thread(target=processa_cliente, args=(con, cliente)).start()
         except Exception as e:
-            print('Erro ao aceitar a conexão:', e)
+            print('Erro ao aceitar a conexão:', e, ' (Code 60)')
 
 if __name__ == "__main__":
     main()

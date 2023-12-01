@@ -7,24 +7,6 @@ TAM_MSG = 1024         # Tamanho do bloco de mensagem
 HOST = '127.0.0.1'     # IP do Servidor
 PORT = 40000           # Porta que o Servidor escuta
 
-
-def decode_cmd_usr(cmd_usr):
-    cmd_map = {
-        'exit': 'quit',
-        '1' : '1',
-        '2' : '2',
-        '3' : '3',
-        '4' : '4',
-        '5' : '5'
-    }
-    
-    tokens = cmd_usr.split()
-    if tokens[0].lower() in cmd_map:
-        tokens[0] = cmd_map[tokens[0].lower()]
-        return " ".join(tokens)
-    else:
-        return False
-    
 if len(sys.argv) > 1:
     HOST = sys.argv[1]
 print('Servidor:', HOST+':'+str(PORT))
@@ -50,7 +32,7 @@ while True:
         elif seletor == '3':
             nome = input("Digite o nome do cliente: ")
             while not nome.isalpha():
-                print("Por favor, digite um nome válido contendo apenas letras.")
+                print("Por favor, digite um nome válido contendo apenas letras. (Code 30)")
                 nome = input("Digite o nome do cliente: ")
             sock.send(str.encode(nome))
             quarto = input("Digite o número do quarto: ")
@@ -62,17 +44,21 @@ while True:
         elif seletor == '4':
             numero = input("Digite o número do quarto para cancelar a reserva: ")
             while not numero:
-                print("Por favor, digite um número.")
+                print("Por favor, digite um número inteiro. (Code 30)")
                 numero = input("Digite o número do quarto para cancelar a reserva: ")
             sock.send(str.encode(numero))
             resposta = sock.recv(TAM_MSG).decode()
             print(resposta)
         
         elif seletor == '5':
+            dicionario = sock.recv(TAM_MSG).decode()
+            print(dicionario)
+
+        elif seletor == '6':
             print('Até mais!')
             sock.close()
             break
 
         else:
-            print("Opção inválida.")
+            print("Opção inválida. (Code 30)")
 sock.close()
