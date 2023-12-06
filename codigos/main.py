@@ -1,19 +1,25 @@
 import threading
-#Criando um semáforo
+
+#Criando um semáforo para lidar com a exclusão mútua.
 mutex = threading.Semaphore(1)
+
+# Classe do objeto "menu" que será criado, contendo todas as funções da aplicação e servido como uma espécie de banco de dados do servidor, garantindo que todos os cliente sejam fornecidos os mesmos dados.
 class GestorReservas:
+    # Construtor
     def __init__(self):
-        #Lista de quartos disponíveis para reserva
+
+        #Lista de quartos disponíveis para reserva.
         self.quartos = [101, 102, 103, 104, 105, 106, 107, 108, 109, 201, 202, 203, 204, 205, 206, 207, 208, 209, 301, 302, 303, 304, 305, 307, 308, 309]
-        #Dicionário paa armazenar as reservas
+        #Dicionário para armazenar as reservas feitas pelos clientes.
         self.reservas = {}
-        #Dicionário de códigos para atribuir uma opração bem sucedida ou falha
+        #Dicionário de códigos que são atribuídos a todas as operações realizadas dentro da aplicação, indicando de forma universal se a operação obteve sucesso ou falhou(e o motivo).
         self.codigos = {'20' : 'Operação realizada com sucesso.',
                         '30' : 'Operação falhou(argumento inválido)',
                         '40' : 'Operação falhou(quarto indisponível)',
                         '50' : 'Operação recusada(permissão negada)',
                         '60' : 'Erro de conexão'}
-    #Função para exibir o menu do sistema do Hotel
+
+    #Função para exibir o menu do sistema do Hotel para o cliente.
     def exibir_menu(self):
         print('\033[1;34m' + '----------------------------------------')
         print('\033[1;34m' + 'Bem-vindo ao Hotel Reservation Protocol!')
@@ -27,24 +33,37 @@ class GestorReservas:
         print('\033[1;32m' + "5. Ver dicionário de códigos de resposta")
         print('\033[1;31m' + "6. Sair" + '\033[0m')
 
-    #Função para ver reservas:
+    #Função para ver reservas já feitas:
     def ver_reservas(self):
-        global mutex #
-        mutex.acquire() #Adquire o semáforo, bloqueando o acesso a seções críticas do código para garantir exclusividade de acesso.
+
+        # Declaração da variável global do mutex, garantindo que a mesma seja usada em todas as funções para que a exclusão mútua seja realizada de forma correta.
+        global mutex 
+
+        # A função tenta adquirir o semáforo, caso consiga, bloqueia o acesso às seções críticas do código para garantir exclusividade de acesso e integridade dos dados. Caso falhe em obter o semáforo, pelo fato de outro cliente estar usando em uma função atualmente, o processamento dessa função será bloqueado, esperando até que o mutex seja liberado para que execute novamente.
+        mutex.acquire() 
+
+        # Verificação para sabe se já existem reservas feitas.
         if self.reservas:
+            # Criação da variável "result" que será usada para guardar o retorno da função
             result = "Reservas:\n" 
+
+            # Itera sobre os itens (chave-valor) no dicionário self.reservas.
             for numero, nome in self.reservas.items():
-            #Itera sobre os itens (chave-valor) no dicionário self.reservas.
+                #   Adiciona uma string formatada ao resultado para cada reserva encontrada.
                 result += f"Quarto {numero} reservado para {nome}. (Code 20)\n"
-                #Adiciona uma string formatada ao resultado para cada reserva encontrada.
-            mutex.release() #mutex -> Libera o semáforo, permitindo que outras threads acessem seções críticas do código.
+            # Libera o semáforo, permitindo que outras threads acessem seções críticas do código.
+            mutex.release() 
+            # Retorna o resultado para ser impresso para o cliente. 
             return result
-        else:#Executado caso o dicionário de reservas esteja vazio.
-            mutex.release() # -> Libera o semáforo mesmo que não haja reservas para garantir consistência no uso do semáforo.
+        # Executado caso o dicionário de reservas esteja vazio.
+        else:
+            # Libera o semáforo já que não será acessada nenhuma região crítica.
+            mutex.release()
+            # Retorna uma mensagem ao cliente.
             return "Nenhuma reserva encontrada. (Code 20)" 
         
 
-    #Função para exibir todos os quartos disponíveis
+    # Função para exibir todos os quartos disponíveis
     def ver_quartos_disponiveis(self):
         global mutex # -> Semáforo usado para garantir acesso exclusivo a seções críticas do código.
         mutex.acquire()

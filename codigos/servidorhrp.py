@@ -98,18 +98,24 @@ def processa_cliente(con, cliente):
 
 # Função principal para rodar o servidor
 def main():
+    # Criação de um servidor TCP usando sockets
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serv = (HOST, PORT)
     sock.bind(serv)
+    # Instrução para o servidor "escutar" possíveis clientes que tentarem se conectar
     sock.listen(50)
 
+    # Criação de um loop infinito para ficar escutando clientes que tentem se conectar
     while True:
         try:
+            # O servidor aceita a conexão do cliente
             con, cliente = sock.accept()
-            # Inicia uma nova thread para lidar com o cliente
+            # Inicia uma nova thread para lidar com o cliente (transformando o servidor em multiprocesso, sendo capaz de lidar com diversos clientes de uma só vez devido as threads que são usadas para surprir as necessidades de cada um).
             threading.Thread(target=processa_cliente, args=(con, cliente)).start()
+        # Impressão de erro caso a conexão cliente-servidor não tenha sucesso por algum motivo.
         except Exception as e:
             print('Erro ao aceitar a conexão:', e, ' (Code 60)')
 
+# Execução do servidor
 if __name__ == "__main__":
     main()
