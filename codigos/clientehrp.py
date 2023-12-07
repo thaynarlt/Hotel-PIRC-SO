@@ -77,7 +77,7 @@ while True:
 
             numero = input("Digite o número do quarto para cancelar a reserva: ")
             # Validação para garantir que o cliente informe um número.
-            while not numero:
+            while not numero and not numero.isnumeric() :
                 print("Por favor, digite um número inteiro. (Code 30)")
                 numero = input("Digite o número do quarto para cancelar a reserva: ")
 
@@ -112,4 +112,3 @@ while True:
         # Se o código informado pelo cliente não for válido, será impressa uma mensagem de erro e o loop irá ser reiniciado.
         else:
             print("Opção inválida. (Code 30)")
-sock.close()
