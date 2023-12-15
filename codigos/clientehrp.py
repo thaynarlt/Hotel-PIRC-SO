@@ -27,88 +27,91 @@ while True:
         sock.send(str.encode(seletor))
 
         # Estrutura de decisão para validar o código enviado pelo cliente.
-        # Se o código for '1', o cliente deseja ver as reservas já feitas.
-        if seletor == '1':
-            # A função de ver as reservas é executada no servidor, que envia o retorno para o cliente através de sockets, essa resposta é guardada na variável "reservas_feitas".
-            reservas_feitas = sock.recv(TAM_MSG).decode()
-            # Impressão do retorno da função enviado pelo servidor.
-            print(reservas_feitas)
+        match seletor:
+            # Se o código for '1', o cliente deseja ver as reservas já feitas.
+            case '1':
+                # A função de ver as reservas é executada no servidor, que envia o retorno para o cliente através de sockets, essa resposta é guardada na variável "reservas_feitas".
+                reservas_feitas = sock.recv(TAM_MSG).decode()
+                # Impressão do retorno da função enviado pelo servidor.
+                print(reservas_feitas)
 
-        # Se o código for '2', o cliente deseja ver os quartos disponíveis para reserva.
-        elif seletor == '2':
-            # A função de ver os quartos disponíveis é executada no servidor, que envia o retorno para o cliente através de sockets, essa resposta é guardada na variável "quartos_disponiveis".
-            quartos_disponiveis = sock.recv(TAM_MSG).decode()
-            # Impressão do retorno da função enviado pelo servidor.
-            print(quartos_disponiveis)
+            # Se o código for '2', o cliente deseja ver os quartos disponíveis para reserva.
+            case '2':
+                # A função de ver os quartos disponíveis é executada no servidor, que envia o retorno para o cliente através de sockets, essa resposta é guardada na variável "quartos_disponiveis".
+                quartos_disponiveis = sock.recv(TAM_MSG).decode()
+                # Impressão do retorno da função enviado pelo servidor.
+                print(quartos_disponiveis)
 
-        # Se o código for '3', o cliente deseja fazer a reserva de um quarto.
-        elif seletor == '3':
+            # Se o código for '3', o cliente deseja fazer a reserva de um quarto.
+            case '3':
 
-            # O cliente deve informar o seu nome para realizar a reserva.
-            nome = input("Digite o nome do cliente: ")
-
-            # Validação para garantir que o nome fornecido pelo cliente seja composto por apenas letras.
-            while not nome.isalpha():
-                print("Por favor, digite um nome válido contendo apenas letras. (Code 30)")
+                # O cliente deve informar o seu nome para realizar a reserva.
                 nome = input("Digite o nome do cliente: ")
 
-            # O nome do cliente é enviado ao servidor, sendo usado como parâmetro para a execução da função.
-            sock.send(str.encode(nome))
+                # Validação para garantir que o nome fornecido pelo cliente seja composto por apenas letras.
+                while not nome.isalpha():
+                    print("Por favor, digite um nome válido contendo apenas letras. (Code 30)")
+                    nome = input("Digite o nome do cliente: ")
 
-            # O cliente deve informar o número do quarto que deseja reservar.
-            quarto = input("Digite o número do quarto: ")
+                # O nome do cliente é enviado ao servidor, sendo usado como parâmetro para a execução da função.
+                sock.send(str.encode(nome))
 
-            # O número de quarto escolhido é enviado ao servidor, sendo usado como parâmetro para a execução da função
-            sock.send(str.encode(quarto))
+                # O cliente deve informar o número do quarto que deseja reservar.
+                quarto = input("Digite o número do quarto: ")
 
-            # Impressão para indicar funcionamento da requisição
-            print('Processando reserva...')
+                # O número de quarto escolhido é enviado ao servidor, sendo usado como parâmetro para a execução da função
+                sock.send(str.encode(quarto))
 
-            # Após a função ser executada no servidor, o servidor retorna uma resposta ao cliente, sendo atribuída à variável "resposta" que é recebida pelo cliente.
-            resposta = sock.recv(TAM_MSG).decode()
+                # Impressão para indicar funcionamento da requisição
+                print('Processando reserva...')
 
-            # Impressão do retorno da execução.
-            print(resposta)
+                # Após a função ser executada no servidor, o servidor retorna uma resposta ao cliente, sendo atribuída à variável "resposta" que é recebida pelo cliente.
+                resposta = sock.recv(TAM_MSG).decode()
 
-        # Se o código for '4', o cliente deseja realizar o cancelamento de uma reserva.
-        elif seletor == '4':
+                # Impressão do retorno da execução.
+                print(resposta)
 
-            # O cliente deve informar o número do quarto reservado que ele deseja cancelar.
+            # Se o código for '4', o cliente deseja realizar o cancelamento de uma reserva.
+            case '4':
 
-            numero = input("Digite o número do quarto para cancelar a reserva: ")
-            # Validação para garantir que o cliente informe um número.
-            while not numero and not numero.isnumeric() :
-                print("Por favor, digite um número inteiro. (Code 30)")
+                # O cliente deve informar o número do quarto reservado que ele deseja cancelar.
+
                 numero = input("Digite o número do quarto para cancelar a reserva: ")
+                # Validação para garantir que o cliente informe um número.
+                while not numero and not numero.isnumeric() :
+                    print("Por favor, digite um número inteiro. (Code 30)")
+                    numero = input("Digite o número do quarto para cancelar a reserva: ")
 
-            # O número do quarto é enviado ao servidor para execução da função.
-            sock.send(str.encode(numero))
+                # O número do quarto é enviado ao servidor para execução da função.
+                sock.send(str.encode(numero))
 
-            # Após a execução da função, o servidor retorna uma resposta ao cliente, sendo atribuída à variável "resposta" que é recebida pelo cliente.
-            resposta = sock.recv(TAM_MSG).decode()
+                # Após a execução da função, o servidor retorna uma resposta ao cliente, sendo atribuída à variável "resposta" que é recebida pelo cliente.
+                resposta = sock.recv(TAM_MSG).decode()
 
-            # Impressão do retorno da execução
-            print(resposta)
-        
-        # Se o código for '5', o cliente deseja ver o dicionário de códigos da aplicação, mostrando o significado dos códigos utilizados nas funções e retornos para indicar status.
-        elif seletor == '5':
+                # Impressão do retorno da execução
+                print(resposta)
+            
+            # Se o código for '5', o cliente deseja ver o dicionário de códigos da aplicação, mostrando o significado dos códigos utilizados nas funções e retornos para indicar status.
+            case '5':
 
-            # O cliente recebe a resposta da execução da função do servidor, atribuindo-a à variável dicionario
-            dicionario = sock.recv(TAM_MSG).decode()
+                # O cliente recebe a resposta da execução da função do servidor, atribuindo-a à variável dicionario
+                dicionario = sock.recv(TAM_MSG).decode()
 
-            # Impressão da resposta
-            print(dicionario)
+                # Impressão da resposta
+                print(dicionario)
 
-        # Se o código for '6', o cliente deseja encerrar a sessão.
-        elif seletor == '6':
+            # Se o código for '6', o cliente deseja encerrar a sessão.
+            case '6':
 
-            # Impressão de despedida.
-            print('Até mais!')
+                # sock.send(str.encode('6'))
 
-            # Encerramento da conexão e quebra do loop infinito.
-            sock.close()
-            break
+                # Impressão de despedida.
+                print('Até mais!')
 
-        # Se o código informado pelo cliente não for válido, será impressa uma mensagem de erro e o loop irá ser reiniciado.
-        else:
-            print("Opção inválida. (Code 30)")
+                # Encerramento da conexão e quebra do loop infinito.
+                sock.close()
+                break
+
+            # Se o código informado pelo cliente não for válido, será impressa uma mensagem de erro e o loop irá ser reiniciado.
+            case _:
+                print("Opção inválida. (Code 30)")
