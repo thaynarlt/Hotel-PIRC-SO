@@ -26,7 +26,7 @@ funcoes = {'1': 'requisição para ver os quartos já reservados.',
 def processa_msg_cliente(msg, con, cliente):
     
     # Decodificação da mensagem(código) enviada pelo cliente.
-    msg = msg.decode()
+    # msg = msg.decode()
     # Impressão para o log do servidor, especificando o endereço do cliente e sua requisição. Caso a mensagem enviada esteja vazia, significa que o cliente pediu para encerrar a conexão, portanto não será impresso um item do dicionário, e sim a string alternativa "requisição para encerrar a conexão".
     print('Cliente', cliente, 'enviou', funcoes.get(msg, 'requisição para encerrar a conexão'))
 
@@ -93,8 +93,9 @@ def processa_cliente(con, cliente):
     while True:
         # Recebe a requisição do cliente e guarda na variável 'msg'
         msg = con.recv(TAM_MSG)
+        msg = msg.decode()
         # Se a mensagem enviada pelo cliente estiver vazia, significa que ele requisitou para encerrar a conexão.
-        if not msg:
+        if msg == '6':
             # Impressão para o log do servidor.
             print(f'Cliente {cliente} encerrou a conexão (Code 20 -OK)')
             # Quebra do loop de escuta para o cliente que se desconectou.
