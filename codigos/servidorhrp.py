@@ -26,7 +26,7 @@ funcoes = {'1': 'requisição para ver os quartos já reservados.',
 def processa_msg_cliente(msg, con, cliente):
     
     # Impressão para o log do servidor, especificando o endereço do cliente e sua requisição. Caso a mensagem enviada esteja vazia, significa que o cliente pediu para encerrar a conexão, portanto não será impresso um item do dicionário, e sim a string alternativa "requisição para encerrar a conexão".
-    print('Cliente', cliente, 'enviou', funcoes.get(msg, 'requisição para encerrar a conexão'))
+    print('Cliente', cliente, 'enviou', funcoes[msg])
 
     # Estrutura de decisão para identificar a funcionalidade requisitada pelo cliente.
     match msg:
