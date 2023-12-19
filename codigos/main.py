@@ -113,7 +113,7 @@ class GestorReservas:
             return f"Reserva para {nome_cliente} no quarto {numero} cancelada com sucesso. (Code 20 -OK)"
         else:
             mutex.release() #Não é possivel cancelar a reserva de um quarto que não foi reservado anteriormente.
-            return f"Desculpe, o quarto {numero} não está reservado. (Code 30 -ERR)"
+            return f"Desculpe, o quarto {numero} não está reservado ou não existe. (Code 30 -ERR)"
         
     #Função para exibir o dicionário de códigos de resposta
     def ver_dicionario(self):
