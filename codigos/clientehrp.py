@@ -50,7 +50,7 @@ while True:
 
                 # Validação para garantir que o nome fornecido pelo cliente seja composto por apenas letras.
                 while not nome.isalpha():
-                    print("Por favor, digite um nome válido contendo apenas letras. (Code 30)")
+                    print("Por favor, digite um nome válido contendo apenas letras. (Code 30 -ERR)")
                     nome = input("Digite o nome do cliente: ")
 
                 # O nome do cliente é enviado ao servidor, sendo usado como parâmetro para a execução da função.
@@ -79,7 +79,7 @@ while True:
                 numero = input("Digite o número do quarto para cancelar a reserva: ")
                 # Validação para garantir que o cliente informe um número.
                 while not numero and not numero.isnumeric() :
-                    print("Por favor, digite um número inteiro. (Code 30)")
+                    print("Por favor, digite um número inteiro. (Code 30 -ERR)")
                     numero = input("Digite o número do quarto para cancelar a reserva: ")
 
                 # O número do quarto é enviado ao servidor para execução da função.
@@ -114,4 +114,4 @@ while True:
 
             # Se o código informado pelo cliente não for válido, será impressa uma mensagem de erro e o loop irá ser reiniciado.
             case _:
-                print("Opção inválida. (Code 30)")
+                print("Opção inválida. (Code 30 -ERR)")

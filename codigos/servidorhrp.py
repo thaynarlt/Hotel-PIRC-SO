@@ -88,7 +88,7 @@ def processa_msg_cliente(msg, con, cliente):
 # Função que processa os clientes que vão se conectando ao servidor
 def processa_cliente(con, cliente):
     # Impressão para o log do servidor, informando quando um cliente se conecta, especficando o endereço e porta do mesmo
-    print(f'Cliente conectado', {cliente}, ' (Code 20)' )
+    print(f'Cliente conectado', {cliente}, ' (Code 20 -OK)' )
     # Iniciação de um loop para ficar escutando qualquer requisição que o cliente fizer
     while True:
         # Recebe a requisição do cliente e guarda na variável 'msg'
@@ -96,7 +96,7 @@ def processa_cliente(con, cliente):
         # Se a mensagem enviada pelo cliente estiver vazia, significa que ele requisitou para encerrar a conexão.
         if not msg:
             # Impressão para o log do servidor.
-            print(f'Cliente {cliente} encerrou a conexão (Code 20)')
+            print(f'Cliente {cliente} encerrou a conexão (Code 20 -OK)')
             # Quebra do loop de escuta para o cliente que se desconectou.
             break
         # Quando um cliente envia uma requisição, a função de processsar sua requisição é chamada, sendo passados a mensagem(código) e endereço do cliente como parâmetros
@@ -121,7 +121,7 @@ def main():
             threading.Thread(target=processa_cliente, args=(con, cliente)).start()
         # Impressão de erro caso a conexão cliente-servidor não tenha sucesso por algum motivo.
         except Exception as e:
-            print('Erro ao aceitar a conexão:', e, ' (Code 60)')
+            print('Erro ao aceitar a conexão:', e, ' (Code 60 -ERR)')
 
 # Execução do servidor
 if __name__ == "__main__":

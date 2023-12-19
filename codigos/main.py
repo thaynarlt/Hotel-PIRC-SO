@@ -50,7 +50,7 @@ class GestorReservas:
             # Itera sobre os itens (chave-valor) no dicionário self.reservas.
             for numero, nome in self.reservas.items():
                 #   Adiciona uma string formatada ao resultado para cada reserva encontrada.
-                result += f"Quarto {numero} reservado para {nome}. (Code 20)\n"
+                result += f"Quarto {numero} reservado para {nome}. (Code 20 -OK)\n"
             # Libera o semáforo, permitindo que outras threads acessem seções críticas do código.
             mutex.release() 
             # Retorna o resultado para ser impresso para o cliente. 
@@ -60,7 +60,7 @@ class GestorReservas:
             # Libera o semáforo já que não será acessada nenhuma região crítica.
             mutex.release()
             # Retorna uma mensagem ao cliente.
-            return "Nenhuma reserva encontrada. (Code 20)" 
+            return "Nenhuma reserva encontrada. (Code 20 -OK)" 
         
 
     # Função para exibir todos os quartos disponíveis
@@ -70,7 +70,7 @@ class GestorReservas:
         # Adquire o semáforo, bloqueando outros threads de entrarem na seção crítica. Isso é feito para garantir operações atômicas na lista de quartos.
         if self.quartos: #Verifica se a lista de quartos (self.quartos) não está vazia.
             self.quartos.sort() #Ordena a lista de quartos em ordem crescente.
-            result = "Quartos disponiveis: " + ', '.join(map(str, self.quartos)) + ' (Code 20)'
+            result = "Quartos disponiveis: " + ', '.join(map(str, self.quartos)) + ' (Code 20 -OK)'
             # Cria uma string formatada que contém a mensagem indicando os quartos disponíveis, formatando a lista de quartos como uma string separada por vírgulas.
             mutex.release()
             #Libera o semáforo, permitindo que outros threads possam entrar na seção crítica.
@@ -78,7 +78,7 @@ class GestorReservas:
             #Retorna a mensagem formatada contendo os quartos disponíveis.
         else:
             mutex.release()
-            return "Não possuímos nenhum quarto disponível no momento. (Code 20)"
+            return "Não possuímos nenhum quarto disponível no momento. (Code 20 -OK)"
 
     #Função para fazer uma reserva
     def fazer_reserva(self, nome, numero):
@@ -88,17 +88,17 @@ class GestorReservas:
         mutex.acquire()
         if numero in self.reservas: #Verifica se o número do quarto (numero) já está presente no dicionário de reservas (self.reservas)
             mutex.release()
-            return f"Desculpe, o quarto {numero} já está reservado. (Code 40)"
+            return f"Desculpe, o quarto {numero} já está reservado. (Code 40 -ERR)"
         # Verifica se o número do quarto é válido
         elif int(numero) not in self.quartos: #Verifica se está presente na lista de quartos disponíveis (self.quartos).
             mutex.release()
-            return f"Número de quarto inexistente. (Code 30)"
+            return f"Número de quarto inexistente. (Code 30 -ERR)"
         else: #Se tudo for válido:
             # Faz a reserva e atualiza a lista de quartos disponíveis
             self.reservas[numero] = nome # Cria uma reserva associando o número do quarto (numero) ao nome do cliente (nome) no dicionário de reservas (self.reservas).
             self.quartos.remove(int(numero)) #Vai retirar o quarto da lista de quartos disponíveis, pois foi reservado
             mutex.release()
-            return f"Reserva para {nome} no quarto {numero} realizada com sucesso. (Code 20)"
+            return f"Reserva para {nome} no quarto {numero} realizada com sucesso. (Code 20 -OK)"
             
     #Função para cancelar uma reserva
     def cancelar_reserva(self, numero):
@@ -110,15 +110,15 @@ class GestorReservas:
             nome_cliente = self.reservas.pop(numero) #Remove a reserva associada ao número do quarto, obtendo o nome do cliente que estava no quarto reservado.
             self.quartos.append(int(numero)) #Adiciona o número do quarto de volta à lista de quartos disponíveis, convertendo para inteiro, pois os quartos são representados como strings.
             mutex.release()
-            return f"Reserva para {nome_cliente} no quarto {numero} cancelada com sucesso. (Code 20)"
+            return f"Reserva para {nome_cliente} no quarto {numero} cancelada com sucesso. (Code 20 -OK)"
         else:
             mutex.release() #Não é possivel cancelar a reserva de um quarto que não foi reservado anteriormente.
-            return f"Desculpe, o quarto {numero} não está reservado. (Code 30)"
+            return f"Desculpe, o quarto {numero} não está reservado. (Code 30 -ERR)"
         
     #Função para exibir o dicionário de códigos de resposta
     def ver_dicionario(self):
     # "ver_dicionario" -> tem o propósito de gerar uma representação formatada do dicionário de códigos de resposta (self.codigos).
-        result = "Dicionário de código: (Code 20)\n"
+        result = "Dicionário de código: (Code 20 -OK)\n"
         for codigo, descricao in self.codigos.items(): #iterar sobre os itens do dicionário "self.codigos.codigo" representa a chave (código) e descricao representa o valor associado (descrição).
             result += f"Código {codigo} = {descricao}\n" #: Para cada par chave-valor no dicionário, adiciona uma linha ao resultado contendo a representação formatada do código e sua descrição.
         return result
