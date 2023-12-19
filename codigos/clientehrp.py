@@ -106,8 +106,6 @@ while True:
             # Se o código for '6', o cliente deseja encerrar a sessão.
             case '6':
 
-                # sock.send(str.encode('6'))
-
                 # Impressão de despedida.
                 print('Até mais!')
 
