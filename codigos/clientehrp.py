@@ -61,7 +61,7 @@ while True:
                 # Validação para garantir que o cliente informe um número.
                 while not quarto and not quarto.isnumeric() :
                     print("Por favor, digite um número inteiro. (Code 30 -ERR)")
-                    quarto = input("Digite o número do quarto para cancelar a reserva: ")
+                    quarto = input("Digite o número do quarto: ")
                 # O número de quarto escolhido é enviado ao servidor, sendo usado como parâmetro para a execução da função
                 sock.send(str.encode(quarto))
 
