@@ -60,7 +60,7 @@ python .\servidorhrp.py
 ```
 _Abra outro terminal e execute o código do cliente:_
 ```
-python .\cliente-hrp.py (IP do servidor)
+python .\clientehrp.py (IP do servidor)
 ```
 ---
 
