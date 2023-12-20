@@ -1,7 +1,5 @@
 # Projeto Integrador  HRP - Documentação
 
-Criado em: December 20, 2023 11:40 AM
-
 > O código inteiro ja está documentado, esse PDF é apenas um complemento.
 > 
 
